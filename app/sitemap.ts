@@ -6,7 +6,7 @@ import { BASE_URL } from '@/lib/env';
 export default function sitemap(): MetadataRoute.Sitemap {
   const sitemapRoutes: MetadataRoute.Sitemap = [
     {
-      url: '/', // home
+      url: '', // home
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 0.9,

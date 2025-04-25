@@ -1,0 +1,4 @@
+Sitemap: https://yesorno.run/sitemap.xml
+
+User-agent: *
+Allow: /

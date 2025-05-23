@@ -3,6 +3,7 @@
 import { useEffect, useState, useRef, useCallback, useMemo } from 'react';
 import Swal from 'sweetalert2';
 import './YesNoWheel.css';
+import { useTranslations } from 'next-intl';
 
 // Interface for individual items on the wheel
 export interface WheelSliceItem {
@@ -237,6 +238,9 @@ export default function YesNoWheel(props: YesNoWheelProps) {
     }
   }, [customItems, selectItemByProbability]);
 
+  // Add internationalization
+  const t = useTranslations('Home.Wheel');
+
   // 重新实现的旋转完成处理函数，使用旋转ID跟踪机制
   const handleSuperWheelComplete = useCallback((superWheelRawResult: { value: any; }) => {
     // 获取当前旋转ID
@@ -310,7 +314,7 @@ export default function YesNoWheel(props: YesNoWheelProps) {
         title: completeWinningItem.resultTitle || 'Result!', 
         text: completeWinningItem.message, 
         width: window.innerWidth < 768 ? '85%' : '32em', 
-        confirmButtonText: 'OK', 
+        confirmButtonText: t('popup.OK'), 
         heightAuto: true, 
         customClass: { 
           popup: 'wheel-popup', 
@@ -706,13 +710,13 @@ export default function YesNoWheel(props: YesNoWheelProps) {
           </div>
           
           <div className="no_of_items">
-            <h2>Number of Items to Show</h2>
+            <h2>{t('NumberOfItems')}</h2>
             <div className="items">
-              <button onClick={() => handleSetSliceRepeats(1)}>ONE</button>
-              <button onClick={() => handleSetSliceRepeats(2)}>TWO</button>
-              <button onClick={() => handleSetSliceRepeats(3)}>THREE</button>
-              <button onClick={() => handleSetSliceRepeats(4)}>FOUR</button>
-              <button onClick={() => handleSetSliceRepeats(5)}>FIVE</button>
+              <button onClick={() => handleSetSliceRepeats(1)}>{t('buttons.ONE')}</button>
+              <button onClick={() => handleSetSliceRepeats(2)}>{t('buttons.TWO')}</button>
+              <button onClick={() => handleSetSliceRepeats(3)}>{t('buttons.THREE')}</button>
+              <button onClick={() => handleSetSliceRepeats(4)}>{t('buttons.FOUR')}</button>
+              <button onClick={() => handleSetSliceRepeats(5)}>{t('buttons.FIVE')}</button>
             </div>
           </div>
         </div>

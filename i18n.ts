@@ -12,7 +12,7 @@ export const languages = [
     code: 'zh-CN',
     lang: 'zh',
     label: '中文',
-  }
+  },
 ];
 
 export const locales = ['en', 'zh'];

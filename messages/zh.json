@@ -1,210 +1,206 @@
 {
-    "Common": {
-      "loading": "loading..."
+  "Common": {
+    "loading": "加载中..."
+  },
+  "Metadata": {
+    "home": {
+      "title": "Yes or No | 终极决策工具和随机答案生成器",
+      "description": "使用 YesOrNo.run - 是或否决策工具，让困难的决定变得更简单。使用我们简单的在线决策工具，立即获得问题的答案。",
+      "keywords": "Yes or No, 是或否, 是否生成器, 决策工具, 随机答案, 是否模拟器, 硬币翻转替代品"
+    }
+  },
+  "Navigation": {
+    "title": "Yes or No | 终极决策工具",
+    "logoAlt": "是或否标志",
+    "logoTitle": "Yes or No",
+    "Home": "首页",
+    "Features": "特点",
+    "Introduction": "介绍",
+    "FAQ": "常见问题",
+    "toggleMenu": "切换菜单"
+  },
+  "NotFound": {
+    "title": "404 未找到",
+    "goHome": "返回首页"
+  },
+  "Home": {
+    "title": "Yes or No",
+    "subTitle": "终极随机决策工具 - 当你需要简单的是或否答案时",
+    "Welcome": {
+      "title": "欢迎使用Yes or No - 你的终极决策工具",
+      "description": "Yes or No 是一个强大的、基于浏览器的决策工具，在你最需要的时候提供即时的是或否答案。无论是解决犹豫不决、解决争论，还是为团体活动增添乐趣，我们的是或否生成器都提供了无声思考问题、视觉动画、答案历史等功能。无需下载或复杂设置，是或否帮助你快速随机做出决定，消除选择的压力。"
     },
-    "Metadata": {
-      "home": {
-        "title": "Yes or No | Decision Making Tool & Random Answer Generator",
-        "description": "Make difficult decisions easier with YesOrNo.run - the yes or no decision maker.Use our simple online decision maker to get instant answers to your questions.",
-        "keywords": "yes or no, yes no generator, decision maker, random answer, yes no simulator, coin flip alternative"
-      }
+    "WhatIs": {
+      "title": "什么是Yes or No？",
+      "description": "Yes or No是一个随机答案生成器，通过简单的是或否回应帮助您做出决定。无论您面临困难的选择，还是只想为日常生活增添些随机性，我们的工具都能减轻决策的负担。使用是或否，无需翻硬币或创建冗长的利弊清单；我们的平台能立即给您答案，帮助您自信地向前迈进。"
     },
-    "Navigation": {
-      "title": "Yes or No | Ultimate Decision Making Tool",
-      "logoAlt": "Yes or No Logo",
-      "logoTitle": "Yes or No",
-      "Home": "Home",
-      "Features": "Features",
-      "Introduction": "Introduction",
-      "FAQ": "FAQ",
-      "toggleMenu": "Toggle menu"
+    "Features": {
+      "title": "我们的是或否决策工具的主要特点",
+      "items": [
+        {
+          "title": "无声的思考",
+          "description": "只需在脑海中思考您的是或否问题，然后旋转轮盘获取答案。无需输入任何内容 - 只需专注于您的问题，我们的工具会提供您内心深处的答案。"
+        },
+        {
+          "title": "视觉动画选项",
+          "description": "体验引人入胜的动画，在看到问题的结果之前，创造一个令人期待的时刻。"
+        },
+        {
+          "title": "答案历史记录",
+          "description": "记录您之前的问题和收到的是或否答案的次数，让您回顾自己的决策历程。"
+        },
+        {
+          "title": "自定义选项",
+          "description": "通过不同的主题和动画风格个性化您的体验，让每次决策都独特而吸引人。"
+        },
+        {
+          "title": "移动设备支持",
+          "description": "我们的决策工具完全适配智能手机和平板电脑，当您需要在路上快速决策时，提供跨设备的无缝体验。"
+        },
+        {
+          "title": "离线功能",
+          "description": "即使没有互联网连接，也可以使用我们的决策工具，一旦加载了应用程序，您可以随时随地做出是或否决定。"
+        }
+      ]
     },
-    "NotFound": {
-      "title": "404 Not Found",
-      "goHome": "go home"
+    "HowToUse": {
+      "title": "如何使用 Yes or No 做决定",
+      "steps": [
+        {
+          "step": "思考您的问题",
+          "description": "在脑海中静静地专注于您的问题。无需输入任何内容 - 只需清晰地想象您正在询问的内容。"
+        },
+        {
+          "step": "旋转Yes or No轮盘",
+          "description": "点击是或否旋转器，开始决策过程并生成您的答案。"
+        },
+        {
+          "step": "想象您期望的结果",
+          "description": "在轮盘旋转时，花点时间想象您偏好的结果以及它对您的意义。"
+        },
+        {
+          "step": "观看动画",
+          "description": "观察旋转动画，期待最终的是或否结果显示给您。"
+        },
+        {
+          "step": "如果匹配就行动",
+          "description": "如果结果符合您所希望的，将其视为按照该选择前进的信号！"
+        },
+        {
+          "step": "考虑相反的选择",
+          "description": "如果您有冲动想再次旋转，这可能表明结果不是您想要的。在这种情况下，您可以简单地采取相反的答案作为您心中真正的答案。"
+        }
+      ]
     },
-    "Home": {
-      "title": "Yes or No",
-      "subTitle": "The Ultimate Random Decision Maker - When You Need a Simple Yes or No Answer",
-      "Welcome": {
-        "title": "Welcome to Yes or No - Your Ultimate Decision Making Tool",
-        "description": "Yes or No is a powerful, browser-based decision making tool that provides instant yes or no answers when you need them most. Perfect for resolving indecision, settling debates, or adding fun to group activities, our Yes or No generator offers features like silent question thinking, visual animations, answer history, and more. Without any downloads or complex setup, Yes or No helps you make decisions quickly and randomly, eliminating the stress of choice."
-      },
-      "WhatIs": {
-        "title": "What is Yes or No?",
-        "description": "Yes or No is a random answer generator that helps you make decisions with a simple yes or no response. Whether you're facing a difficult choice or just want to add some randomness to your day, our tool removes the burden of decision-making. With Yes or No, there's no need to flip coins or create lengthy pros and cons lists; our platform gives you immediate answers to help you move forward confidently."
-      },
-      "Features": {
-        "title": "Key Features of Our Yes or No Decision Maker",
-        "items": [
-          {
-            "title": "Silent Question Thinking",
-            "description": "Simply think of your yes or no question in your mind, then spin the wheel for an answer. No need to type anything - just focus on your question while our tool provides the random result."
-          },
-          {
-            "title": "Visual Animation Options",
-            "description": "Experience engaging animations as your answer is revealed, creating an exciting moment of anticipation before seeing your yes or no result."
-          },
-          {
-            "title": "Answer History",
-            "description": "Keep track of your previous questions and the yes or no answers you received, allowing you to review your decision-making journey."
-          },
-          {
-            "title": "Customization Options",
-            "description": "Personalize your experience with different themes and animation styles, making each decision-making session unique and engaging."
-          },
-          {
-            "title": "Mobile Support",
-            "description": "Our decision maker is fully optimized for smartphones and tablets, giving you a seamless experience across all your devices when you need to make quick decisions on the go."
-          },
-          {
-            "title": "Offline Capability",
-            "description": "Enjoy our decision maker even without an internet connection, allowing you to make yes or no decisions anytime, anywhere once the app has been loaded."
-          }
-        ]
-      },
-      "HowToUse": {
-        "title": "How to Use Yes or No to Make Decisions",
-        "steps": [
-          {
-            "step": "Think of Your Question",
-            "description": "Silently focus on your yes or no question in your mind. No need to type anything - just clearly visualize what you're asking."
-          },
-          {
-            "step": "Spin the Yes or No Wheel",
-            "description": "Click the Yes or No spinner to start the decision-making process and generate your random answer."
-          },
-          {
-            "step": "Visualize Your Desired Outcome",
-            "description": "While the wheel is spinning, take a moment to imagine your preferred outcome and what it would mean for you."
-          },
-          {
-            "step": "Watch the Animation",
-            "description": "Observe the spinning animation and anticipate the final yes or no result as it's revealed to you."
-          },
-          {
-            "step": "Just Do It If It Matches",
-            "description": "If the result aligns with what you were hoping for, consider it a sign to proceed with that choice!"
-          },
-          {
-            "step": "Consider the Opposite",
-            "description": "If you feel the urge to spin again, it might indicate the result wasn't what you wanted. In this case, you can simply take the opposite answer as your true preference."
-          }
-        ]
-      },
-      "WhyChoose": {
-        "title": "Why Choose Yes or No for Your Decision-Making Needs?",
-        "items": [
-          {
-            "title": "No Software Downloads Required",
-            "description": "Access Yes or No directly from your browser, making it quick and easy to use on any device when you need a decision made."
-          },
-          {
-            "title": "Truly Random Results",
-            "description": "Our algorithm ensures completely random yes or no answers, eliminating any bias from your decision-making process."
-          },
-          {
-            "title": "Multiple Applications",
-            "description": "From serious life choices to fun games with friends, our yes or no tool is versatile enough to suit any situation requiring a binary decision."
-          },
-          {
-            "title": "Stress-Free Decisions",
-            "description": "Remove the anxiety of making tough choices by letting our yes or no generator take responsibility, freeing you to focus on implementation rather than deliberation."
-          }
-        ]
-      },
-      "DesignTips": {
-        "title": "Tips for Effective Yes or No Questions",
-        "tips": [
-          {
-            "tip": "Be Specific",
-            "description": "Frame your questions clearly so they can be answered with a simple yes or no. Avoid complex or multi-part questions."
-          },
-          {
-            "tip": "Consider the Stakes",
-            "description": "While our yes or no tool is perfect for many decisions, remember that life-changing choices might need more consideration."
-          },
-          {
-            "tip": "Use for Breaking Deadlocks",
-            "description": "When you're genuinely stuck between two equally appealing options, a random yes or no can help you move forward."
-          },
-          {
-            "tip": "Have Fun With It",
-            "description": "Use Yes or No for lighthearted decisions like 'Should we order pizza tonight?' to add spontaneity to your day."
-          }
-        ]
-      },
-      "Faq": {
-        "title": "Frequently Asked Questions about Yes or No",
-        "questions": [
-          {
-            "question": "Is Yes or No completely free?",
-            "answer": "Yes, our basic features are available at no cost, allowing you to get unlimited yes or no answers without any fees."
-          },
-          {
-            "question": "Does it work on mobile devices?",
-            "answer": "Absolutely! Yes or No is optimized for mobile, so you can make decisions on the go using any device with a browser."
-          },
-          {
-            "question": "Are the yes or no answers truly random?",
-            "answer": "Yes, we use a high-quality random number generator to ensure each answer is completely random and unbiased."
-          },
-          {
-            "question": "How does thinking of my question silently work?",
-            "answer": "The process is designed to help you connect with your intuition. By thinking of your question silently while focusing on the spinning wheel, you create a mental association between your question and the random result, making the decision feel more meaningful."
-          },
-          {
-            "question": "Can Yes or No help with important life decisions?",
-            "answer": "While Yes or No can be a helpful tool for breaking decision paralysis, we recommend using it as a supplement rather than the sole basis for major life decisions. It works best for decisions where both options are relatively equal, or where you need a push to take action."
-          },
-          {
-            "question": "What if I don't like the answer I receive?",
-            "answer": "That's actually valuable information! If you find yourself disappointed with the result, it often reveals what you truly wanted. In that case, we suggest going with your gut feeling rather than the random answer - the tool has still helped you discover your preference."
-          },
-          {
-            "question": "Is it possible to save my decision history?",
-            "answer": "Yes, our tool automatically saves your recent decision history locally on your device. This allows you to review past questions and answers, which can be helpful for tracking decision patterns or referring back to important choices."
-          }
-        ]
-      }
+    "WhyChoose": {
+      "title": "为什么选择 Yes or No 满足您的决策需求？",
+      "items": [
+        {
+          "title": "无需软件下载",
+          "description": "直接从浏览器访问 Yes or No，当您需要做决定时，可以在任何设备上快速轻松地使用。"
+        },
+        {
+          "title": "真正的随机结果",
+          "description": "我们的算法确保完全随机的是或否答案，消除您决策过程中的任何偏见。"
+        },
+        {
+          "title": "多种应用场景",
+          "description": "从严肃的生活选择到与朋友的有趣游戏，我们的是或否工具足够灵活，适用于任何需要二元决策的情况。"
+        },
+        {
+          "title": "无压力决策",
+          "description": "通过让我们的是或否生成器承担责任，减轻做出艰难选择的焦虑，使您能够专注于实施而非犹豫不决。"
+        }
+      ]
     },
-    "Footer": {
-      "title": "Yes or No",
-      "subTitle": "The Ultimate Random Decision Maker - Get Your Yes or No Answer Now!",
-      "copyright": "© 2025 YesOrNo.run. All rights reserved.",
-      "support": "Support",
-      "privacy": "Privacy Policy",
-      "termsConditions": "Terms & Conditions"
+    "DesignTips": {
+      "title": "有效是或否问题的技巧",
+      "tips": [
+        {
+          "tip": "具体明确",
+          "description": "清晰地构建您的问题，使其可以用简单的是或否回答。避免复杂或多部分的问题。"
+        },
+        {
+          "tip": "考虑利害关系",
+          "description": "虽然我们的是或否工具非常适合许多决定，但请记住，改变生活的选择可能需要更多考虑。"
+        },
+        {
+          "tip": "用于打破僵局",
+          "description": "当您真正陷入两个同样吸引人的选择之间时，随机的是或否可以帮助您前进。"
+        },
+        {
+          "tip": "享受其中的乐趣",
+          "description": "将是或否用于轻松决定，如\"我今晚该不该参加她的约会？\"，为您的一天增添自发性。"
+        }
+      ]
     },
-    "FooterNavigation": {
-      "privacyPolicy": {
-        "1-h1": "Privacy Policy for Yes or No",
-        "1-p": "Yes or No operates the website https://yesorno.run and is committed to protecting your privacy. This privacy policy outlines how we handle information when you use our online decision-making tool.",
-        "2-h2": "Information Collection",
-        "2-h3-1": "Personal Data",
-        "2-p-1": "We do not collect any personal identification information from users. Our service is designed to be used without requiring personal data.",
-        "2-h3-2": "Non-Personal Data",
-        "2-p-3": "We collect non-personal data through web cookies, including usage statistics and preferences, to improve our service and user experience. This may include your display settings and customization preferences.",
-        "3-h2": "Data Usage",
-        "3-p": "Any collected non-personal data is used solely to enhance the functionality of our yes or no decision tool and improve user experience. We do not share any data with third parties.",
-        "4-h2": "Updates to This Privacy Policy",
-        "6-h2": "Contact Us",
-        "6-p": "If you have any questions about this Privacy Policy, please contact us at support@yesorno.run."
+    "Faq": {
+      "title": "关于 Yes or No 的常见问题",
+      "questions": [
+        {
+          "question": "Yes or No 完全免费吗？",
+          "answer": "是的，我们的基本功能免费提供，让您无需任何费用即可获得无限的是或否答案。"
+        },
+        {
+          "question": "它可以在移动设备上使用吗？",
+          "answer": "绝对可以！是或否针对移动设备进行了优化，因此您可以使用任何带浏览器的设备随时随地做出决定。"
+        },
+        {
+          "question": "Yes or No 的答案真的是随机的吗？",
+          "answer": "是的，我们使用高质量的随机数生成器，确保每个答案都是完全随机且无偏见的。"
+        },
+        {
+          "question": "默默思考我的问题是如何运作的？",
+          "answer": "这个过程旨在帮助您连接您的直觉。通过在专注于旋转轮盘的同时默默思考您的问题，您在问题和随机结果之间创建了一种心理联系，使决定感觉更有意义。"
+        },
+        {
+          "question": "Yes or No 能帮助重要的生活决定吗？",
+          "answer": "虽然 Yes or No 可以作为打破决策瘫痪的有用工具，但我们建议将其作为重大生活决定的补充，而非唯一依据。它最适合两个选项相对平等的决定，或者您需要推动采取行动的情况。"
+        },
+        {
+          "question": "如果我不喜欢收到的答案怎么办？",
+          "answer": "那实际上是有价值的信息！如果您对结果感到失望，这通常会揭示您真正想要的是什么。在这种情况下，我们建议您遵循自己的直觉而非随机答案 - 这个工具仍然帮助您发现了自己的偏好。"
+        },
+        {
+          "question": "是否可以保存我的决策历史？",
+          "answer": "是的，我们的工具会自动将您最近的决策历史本地保存在您的设备上。这使您可以回顾过去的问题和答案，这对于跟踪决策模式或参考重要选择很有帮助。"
+        }
+      ]
+    },
+    "Wheel": {
+      "items": [
+        {
+          "text": "YES",
+          "value": "yes",
+          "message": "去做吧！",
+          "resultTitle": "确定！"
+        },
+        {
+          "text": "NO",
+          "value": "no",
+          "message": "您可能需要考虑别这样做！",
+          "resultTitle": "注意！"
+        }
+      ],
+      "NumberOfItems": "重复显示选项次数",
+      "buttons": {
+        "ONE": "1次",
+        "TWO": "2次",
+        "THREE": "3次",
+        "FOUR": "4次",
+        "FIVE": "5次"
       },
-      "termsConditions": {
-        "1-h1": "Terms of Service for Yes or No",
-        "1-p": "Welcome to Yes or No. By accessing our website (https://yesorno.run), you agree to these Terms of Service. Our service provides an online decision-making tool for generating random yes or no answers.",
-        "2-h2": "1. Ownership",
-        "2-p": "All content on the Website, including the yes or no generator, design elements, and related materials, is the intellectual property of Yes or No unless otherwise stated. The questions entered by users remain their property.",
-        "3-h2": "2. Usage Guidelines",
-        "3-p": "Our service is provided for making decisions with yes or no answers. Users are responsible for the content they create and should not use the service for any illegal or harmful purposes.",
-        "4-h2": "3. Governing Law",
-        "4-p": "These Terms shall be governed by applicable laws, without regard to conflicts of law principles.",
-        "5-h2": "4. Changes to Terms",
-        "5-p": "Yes or No reserves the right to modify these Terms at any time. Changes will be effective immediately upon posting to the website. Your continued use of the service constitutes acceptance of any changes.",
-        "6-h2": "5. Contact Information",
-        "6-p": "If you have any questions about these Terms, please contact us at support@yesorno.run.",
-        "last-p": "By using Yes or No, you acknowledge that you have read and agree to these Terms of Service."
+      "popup": {
+        "OK": "确定"
       }
     }
+  },
+  "Footer": {
+    "title": "Yes or No",
+    "subTitle": "终极随机决策工具 - 立即获取您的是或否答案！",
+    "copyright": "© 2025 YesOrNo.run. All rights reserved.",
+    "support": "支持",
+    "privacy": "隐私政策",
+    "termsConditions": "条款和条件"
   }
+}

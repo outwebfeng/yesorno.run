@@ -16,7 +16,7 @@ export default function Page() {
       <h2 className='mb-3 text-xl font-semibold sm:text-2xl'>Updates to This Privacy Policy</h2>
 
       <h2 className='mb-3 text-xl font-semibold sm:text-2xl'>Contact Us</h2>
-      <p className='mb-4 text-sm sm:text-base'>If you have any questions about this Privacy Policy, please contact us at support@yesorno.run.</p>
+      <p className='mb-4 text-sm sm:text-base'>If you have any questions about this Privacy Policy, please contact us at support@yesorno.run .</p>
     </div>
   );
 }

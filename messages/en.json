@@ -166,6 +166,33 @@
           "answer": "Yes, our tool automatically saves your recent decision history locally on your device. This allows you to review past questions and answers, which can be helpful for tracking decision patterns or referring back to important choices."
         }
       ]
+    },
+    "Wheel": {
+      "items": [
+        {
+          "text": "YES",
+          "value": "yes",
+          "message": "Go for it!",
+          "resultTitle": "Sure!"
+        },
+        {
+          "text": "NO",
+          "value": "no",
+          "message": "You may need to consider not doing it!",
+          "resultTitle": "Attention!"
+        }
+      ],
+      "NumberOfItems": "Number of Items to Show",
+      "buttons": {
+        "ONE": "ONE",
+        "TWO": "TWO",
+        "THREE": "THREE",
+        "FOUR": "FOUR",
+        "FIVE": "FIVE"
+      },
+      "popup": {
+        "OK": "OK"
+      }
     }
   },
   "Footer": {
@@ -175,7 +202,5 @@
     "support": "Support",
     "privacy": "Privacy Policy",
     "termsConditions": "Terms & Conditions"
-  },
-  "FooterNavigation": {
   }
 }

@@ -11,27 +11,28 @@ const ScrollToTop = dynamic(() => import('@/components/page/ScrollToTop'), { ssr
 
 export default function Page() {
   const t = useTranslations('Home');
+  const wheelT = useTranslations('Home.Wheel');
 
   const defaultWheelItems: WheelSliceItem[] = useMemo(() => [
     {
-      text: "YES",
-      value: "yes",
-      message: "Go for it!",
+      text: wheelT('items.0.text'),
+      value: wheelT('items.0.value'),
+      message: wheelT('items.0.message'),
       background: "var(--wheel-color1)", 
       resultIcon: 'success',
-      resultTitle: "Sure!",
+      resultTitle: wheelT('items.0.resultTitle'),
       probability: 0.5
     },
     {
-      text: "NO",
-      value: "no",
-      message: "You may need to consider not doing it!",
+      text: wheelT('items.1.text'),
+      value: wheelT('items.1.value'),
+      message: wheelT('items.1.message'),
       background: "var(--wheel-color2)", 
       resultIcon: 'error',
-      resultTitle: "Attention!",
+      resultTitle: wheelT('items.1.resultTitle'),
       probability: 0.5
     },
-  ], []);
+  ], [wheelT]);
 
   const handleSpinResult = useCallback((result: WheelSliceItem) => {
     console.log('Spin result in parent:', result);

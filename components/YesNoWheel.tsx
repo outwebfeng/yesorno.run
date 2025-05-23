@@ -7,9 +7,9 @@ import './YesNoWheel.css';
 // Interface for individual items on the wheel
 export interface WheelSliceItem {
   text: string;
-  value: any; // Unique value for this slice
-  message: string; // Message for Swal popup
-  background: string; // Background color for the slice
+  value?: any; // 现在是可选的
+  message?: string; // 现在是可选的
+  background?: string; // 现在是可选的
   probability?: number; // Optional: 0 to 1, for weighted selection
   resultIcon?: 'success' | 'error' | 'warning' | 'info' | 'question'; // Optional: Swal icon
   resultTitle?: string; // Optional: Swal title
@@ -58,10 +58,15 @@ export default function YesNoWheel(props: YesNoWheelProps) {
   // 创建一个映射，存储每个选项对应的背景色
   const colorMap = useMemo(() => {
     const map: Record<string, string> = {};
+    const colors: string[] = [];
+    for (let i = 1; i <= 10; i++) {
+      colors.push(`var(--wheel-color${i})`);
+    }
+
     if (customItems && customItems.length > 0) {
-      customItems.forEach(item => {
-        const key = String(item.value).toLowerCase();
-        map[key] = item.background || 'var(--wheel-color1)';
+      customItems.forEach((item, index) => {
+        const key = String(item.value || item.text).toLowerCase();
+        map[key] = item.background || colors[index % colors.length];
       });
     }
     return map;
@@ -70,8 +75,10 @@ export default function YesNoWheel(props: YesNoWheelProps) {
   // 初始化计数器
   useEffect(() => {
     if (customItems && customItems.length > 0) {
-      // 获取所有唯一的value值
-      const uniqueValues = Array.from(new Set(customItems.map(item => String(item.value).toLowerCase())));
+      // 获取所有唯一的value值，如果没有value则使用text
+      const uniqueValues = Array.from(new Set(
+        customItems.map(item => String(item.value || item.text).toLowerCase())
+      ));
       
       // 初始化计数器对象
       const initialCounters: Record<string, number> = {};
@@ -162,9 +169,22 @@ export default function YesNoWheel(props: YesNoWheelProps) {
     return itemsWithProbs.length > 0 ? itemsWithProbs[itemsWithProbs.length - 1] : null;
   }, []);
 
+  // 增加防抖引用，防止多次快速点击
+  const lastClickTimeRef = useRef<number>(0);
+  
   const handleSpin = useCallback(() => {
     const $ = window.jQuery;
     if (!$ || !wheelRef.current || isSpinning.current || !customItems || customItems.length === 0) return;
+    
+    // 添加点击防抖，避免快速多次点击
+    const now = Date.now();
+    if (now - lastClickTimeRef.current < 500) { // 500ms内不允许再次点击
+      console.log('点击过于频繁，忽略此次点击');
+      return;
+    }
+    lastClickTimeRef.current = now;
+    
+    console.log('开始旋转操作');
     isSpinning.current = true;
     
     // 为每次旋转分配一个新的ID
@@ -173,12 +193,19 @@ export default function YesNoWheel(props: YesNoWheelProps) {
     
     let targetItem: WheelSliceItem | null = selectItemByProbability(customItems);
     if (targetItem) {
-      $(wheelRef.current).superWheel('start', 'value', targetItem.value);
-      if(wheelRef.current) { $('.wheel-horizontal-spin-button', wheelRef.current).prop('disabled', true); }
+      try {
+        $(wheelRef.current).superWheel('start', 'value', targetItem.value || targetItem.text);
+        $('.wheel-horizontal-spin-button', wheelRef.current).prop('disabled', true);
+      } catch (error) {
+        console.error('启动转盘时出错:', error);
+        // 出错时重置旋转状态，确保用户可以重试
+        isSpinning.current = false;
+        $('.wheel-horizontal-spin-button', wheelRef.current).prop('disabled', false);
+      }
     } else {
       console.error("Could not determine target item to spin to.");
       isSpinning.current = false;
-      if(wheelRef.current) { $('.wheel-horizontal-spin-button', wheelRef.current).prop('disabled', false); }
+      $('.wheel-horizontal-spin-button', wheelRef.current).prop('disabled', false);
     }
   }, [customItems, selectItemByProbability]);
 
@@ -204,14 +231,40 @@ export default function YesNoWheel(props: YesNoWheelProps) {
       onSpinCompleteRef: currentOnSpinCompleteRef
     } = latestPropsAndStateRef.current;
 
-    const winningItem = currentCustomItems.find(item => item.value === superWheelRawResult.value);
+    // 标准化自定义项目，以便查找时考虑到text可能作为value的情况
+    const normalizedItems = currentCustomItems.map(item => ({
+      ...item,
+      value: item.value || item.text // 确保value存在
+    }));
+    
+    let winningItem = normalizedItems.find(item => item.value === superWheelRawResult.value);
+    
+    // 如果找不到匹配项，尝试在原始选项中查找
+    if (!winningItem) {
+      winningItem = normalizedItems.find(item => 
+        String(item.value).toLowerCase() === String(superWheelRawResult.value).toLowerCase()
+      );
+    }
+    
     if (winningItem) {
-      wheelResultRef.current = winningItem;
+      // 确保winningItem拥有所有必要的属性
+      const completeWinningItem = {
+        text: winningItem.text,
+        value: winningItem.value || winningItem.text,
+        message: winningItem.message || `Your result is ${winningItem.text}`,
+        background: winningItem.background || 'var(--wheel-color1)',
+        resultIcon: winningItem.resultIcon || 'info',
+        resultTitle: winningItem.resultTitle || winningItem.text
+      };
+      
+      wheelResultRef.current = completeWinningItem;
+      
       if (currentOnSpinCompleteRef.current) {
-        currentOnSpinCompleteRef.current(winningItem);
+        currentOnSpinCompleteRef.current(completeWinningItem);
       }
+      
       if (currentShowControls) {
-        const valStr = String(winningItem.value).toLowerCase();
+        const valStr = String(completeWinningItem.value).toLowerCase();
         console.log(`增加计数: ${valStr}`);
         currentSetCounters(prev => {
           // 如果该选项不在计数器中，先添加它
@@ -223,11 +276,74 @@ export default function YesNoWheel(props: YesNoWheelProps) {
           return { ...prev, [valStr]: prev[valStr] + 1 };
         });
       }
-      Swal.fire({ icon: (winningItem.resultIcon || 'info') as any, title: winningItem.resultTitle || 'Result!', text: winningItem.message, width: window.innerWidth < 768 ? '85%' : '32em', confirmButtonText: 'OK', heightAuto: true, customClass: { popup: 'wheel-popup', title: 'wheel-popup-title', htmlContainer: 'wheel-popup-content', confirmButton: 'wheel-popup-button' }});
-    } else { console.error(`Winning value ${superWheelRawResult.value} not found.`); }
+      
+      Swal.fire({ 
+        icon: (completeWinningItem.resultIcon || 'info') as any, 
+        title: completeWinningItem.resultTitle || 'Result!', 
+        text: completeWinningItem.message, 
+        width: window.innerWidth < 768 ? '85%' : '32em', 
+        confirmButtonText: 'OK', 
+        heightAuto: true, 
+        customClass: { 
+          popup: 'wheel-popup', 
+          title: 'wheel-popup-title', 
+          htmlContainer: 'wheel-popup-content', 
+          confirmButton: 'wheel-popup-button' 
+        }
+      });
+    } else { 
+      console.error(`Winning value ${superWheelRawResult.value} not found.`); 
+    }
+    
+    // 重置旋转状态
     isSpinning.current = false;
-    if (wheelRef.current && window.jQuery) { window.jQuery(wheelRef.current).find('.wheel-horizontal-spin-button').prop('disabled', false); }
+    
+    // 确保按钮可用
+    if (wheelRef.current && window.jQuery) { 
+      try {
+        const $ = window.jQuery;
+        console.log('重新启用旋转按钮');
+        $('.wheel-horizontal-spin-button', wheelRef.current).prop('disabled', false);
+      } catch (error) {
+        console.error('重置按钮状态时出错:', error);
+      }
+    }
   }, []); // EMPTY DEPS: This function reference is STABLE
+
+  // 准备转盘切片数据
+  const prepareWheelSlices = useCallback((items: WheelSliceItem[], repeats: number) => {
+    // 获取可用的背景颜色总数
+    const getAvailableColors = () => {
+      const colors = [];
+      for (let i = 1; i <= 10; i++) {
+        colors.push(`var(--wheel-color${i})`);
+      }
+      return colors;
+    };
+    
+    const colors = getAvailableColors();
+    
+    // 标准化项目数据，填充缺失的属性
+    const normalizedItems = items.map((item, index) => {
+      return {
+        text: item.text,
+        value: item.value || item.text, // 如果没有value，使用text
+        message: item.message || `Your result is ${item.text}`, // 如果没有message，使用默认消息
+        background: item.background || colors[index % colors.length], // 如果没有背景色，使用颜色循环
+        probability: item.probability,
+        resultIcon: item.resultIcon || 'info', // 如果没有图标，使用info
+        resultTitle: item.resultTitle || item.text // 如果没有标题，使用text
+      };
+    });
+    
+    // 根据重复次数创建最终数组
+    let finalSlices: WheelSliceItem[] = [];
+    for (let i = 0; i < repeats; i++) {
+      finalSlices = finalSlices.concat(normalizedItems);
+    }
+    
+    return finalSlices;
+  }, []);
 
   // 完全重构转盘初始化逻辑
   useEffect(() => {
@@ -242,15 +358,31 @@ export default function YesNoWheel(props: YesNoWheelProps) {
     const cleanupWheel = () => {
       if (!wheelRef.current) return;
       
+      const $ = window.jQuery;
+      if (!$) return;
+      
       // 移除所有事件处理程序并销毁SuperWheel实例
       try {
+        // 解绑所有按钮事件
         $(document).off('click', '.wheel-horizontal-spin-button');
-        $(wheelRef.current).off(); // 移除所有jQuery事件
+        $(document).off('click', '#wheel-spin-button');
+        $('.wheel-horizontal-spin-button', wheelRef.current).off('click');
+        $('#wheel-spin-button', wheelRef.current).off('click');
+        $(wheelRef.current).find('.wheel-horizontal-spin-button').off('click');
+        $(wheelRef.current).find('#wheel-spin-button').off('click');
         
+        // 移除所有jQuery事件
+        $(wheelRef.current).off(); 
+        
+        // 销毁SuperWheel实例
         if ($(wheelRef.current).data('superWheel')) {
           $(wheelRef.current).superWheel('destroy');
         }
         
+        // 重置内部状态
+        isSpinning.current = false;
+        
+        // 清空DOM
         $(wheelRef.current).empty();
       } catch (e) {
         console.error("Error during wheel cleanup:", e);
@@ -262,10 +394,8 @@ export default function YesNoWheel(props: YesNoWheelProps) {
     
     // 准备转盘切片数据
     const currentRepeats = showControls ? activeSliceRepeats : sliceRepeats;
-    let wheelSlices: WheelSliceItem[] = [];
-    for (let i = 0; i < currentRepeats; i++) {
-      wheelSlices = wheelSlices.concat(customItems);
-    }
+    // 使用新的prepareWheelSlices函数替代原来的重复逻辑
+    const wheelSlices = prepareWheelSlices(customItems, currentRepeats);
     
     // 确保我们有数据再继续
     if (wheelSlices.length === 0) {
@@ -333,7 +463,7 @@ export default function YesNoWheel(props: YesNoWheelProps) {
         
         // 添加中心按钮
         $('.sWheel-center', wheelRef.current).html(`
-          <button type="button" class="button button-primary wheel-horizontal-spin-button">
+          <button type="button" class="button button-primary wheel-horizontal-spin-button" id="wheel-spin-button">
             <svg xmlns="http://www.w3.org/2000/svg" height="1.5em" viewBox="0 0 512 512">
               <path d="M256 96c38.4 0 73.7 13.5 101.3 36.1l-32.6 32.6c-4.6 4.6-5.9 11.5-3.5 17.4s8.3 9.9 14.8 9.9H448c8.8 0 16-7.2 16-16V64c0-6.5-3.9-12.3-9.9-14.8s-12.9-1.1-17.4 3.5l-34 34C363.4 52.6 312.1 32 256 32c-10.9 0-21.5 .8-32 2.3V99.2c10.3-2.1 21-3.2 32-3.2zM132.1 154.7l32.6 32.6c4.6 4.6 11.5 5.9 17.4 3.5s9.9-8.3 9.9-14.8V64c0-8.8-7.2-16-16-16H64c-6.5 0-12.3 3.9-14.8 9.9s-1.1 12.9 3.5 17.4l34 34C52.6 148.6 32 199.9 32 256c0 10.9 .8 21.5 2.3 32H99.2c-2.1-10.3-3.2-21-3.2-32c0-38.4 13.5-73.7 36.1-101.3zM477.7 224H412.8c2.1 10.3 3.2 21 3.2 32c0 38.4-13.5 73.7-36.1 101.3l-32.6-32.6c-4.6-4.6-11.5-5.9-17.4-3.5s-9.9 8.3-9.9 14.8V448c0 8.8 7.2 16 16 16H448c6.5 0 12.3-3.9 14.8-9.9s1.1-12.9-3.5-17.4l-34-34C459.4 363.4 480 312.1 480 256c0-10.9-.8-21.5-2.3-32zM256 416c-38.4 0-73.7-13.5-101.3-36.1l32.6-32.6c4.6-4.6 5.9-11.5 3.5-17.4s-8.3-9.9-14.8-9.9H64c-8.8 0-16 7.2-16 16l0 112c0 6.5 3.9 12.3 9.9 14.8s12.9 1.1 17.4-3.5l34-34C148.6 459.4 199.9 480 256 480c10.9 0 21.5-.8 32-2.3V412.8c-10.3 2.1-21 3.2-32 3.2z"/>
             </svg>
@@ -354,8 +484,32 @@ export default function YesNoWheel(props: YesNoWheelProps) {
           `);
         }
         
-        // 一次性注册按钮事件处理程序
-        $(document).off('click', '.wheel-horizontal-spin-button').on('click', '.wheel-horizontal-spin-button', handleSpin);
+        // 直接绑定点击事件到按钮，而不是通过document委托
+        console.log('绑定旋转按钮点击事件');
+        // 先移除所有现有的事件绑定
+        $(document).off('click', '.wheel-horizontal-spin-button');
+        $(document).off('click', '#wheel-spin-button');
+        $(wheelRef.current).find('.wheel-horizontal-spin-button').off('click');
+        
+        // 使用更可靠的方式绑定点击事件
+        const spinButton = $(wheelRef.current).find('#wheel-spin-button');
+        if (spinButton.length) {
+          spinButton.on('click', function(e: MouseEvent) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('按钮被点击');
+            if (!isSpinning.current) {
+              handleSpin();
+            } else {
+              console.log('忽略点击，转盘正在旋转中');
+            }
+          });
+          
+          console.log('转盘按钮事件绑定成功');
+        } else {
+          console.error('找不到转盘按钮元素');
+        }
+        
       } catch (error) {
         console.error("Error initializing wheel:", error);
       }

@@ -45,6 +45,12 @@ export default function Page() {
       resultIcon: 'info',
       resultTitle: "Cool!"
     },
+    {
+      text: "Simple"
+    },
+    {
+      text: "Easy"
+    }
   ], []);
 
   const handleSpinResult = useCallback((result: WheelSliceItem) => {

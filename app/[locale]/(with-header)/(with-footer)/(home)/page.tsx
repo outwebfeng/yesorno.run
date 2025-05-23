@@ -3,12 +3,38 @@
 import dynamic from 'next/dynamic';
 import { useTranslations } from 'next-intl';
 import YesNoWheel from '@/components/YesNoWheel';
+import type { WheelSliceItem } from '@/components/YesNoWheel';
+import { useCallback, useMemo } from 'react';
 
 // 静态导入ScrollToTop组件
 const ScrollToTop = dynamic(() => import('@/components/page/ScrollToTop'), { ssr: false });
 
 export default function Page() {
   const t = useTranslations('Home');
+
+  const defaultWheelItems: WheelSliceItem[] = useMemo(() => [
+    {
+      text: "YES",
+      value: "yes",
+      message: "Great! It's a YES!",
+      background: "var(--wheel-color1)", // Example color from your CSS
+      resultIcon: 'success',
+      resultTitle: "Affirmative!"
+    },
+    {
+      text: "NO",
+      value: "no",
+      message: "Hmm, it's a NO.",
+      background: "var(--wheel-color2)", // Example color from your CSS
+      resultIcon: 'error',
+      resultTitle: "Negative!"
+    },
+  ], []);
+
+  const handleSpinResult = useCallback((result: WheelSliceItem) => {
+    console.log('Spin result in parent:', result);
+    // You can access result.value, result.message etc. here
+  }, []);
 
   return (
     <div className='relative w-full bg-gradient-to-b from-slate-50 to-white'>
@@ -24,7 +50,7 @@ export default function Page() {
             </div>
           </div>
           
-          <YesNoWheel />
+          <YesNoWheel customItems={defaultWheelItems} sliceRepeats={3} onSpinComplete={handleSpinResult} />
         </section>
 
 

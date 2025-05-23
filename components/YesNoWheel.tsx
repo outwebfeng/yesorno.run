@@ -150,22 +150,50 @@ export default function YesNoWheel(props: YesNoWheelProps) {
   }, []);
 
   const selectItemByProbability = useCallback((itemsToSelectFrom: WheelSliceItem[]): WheelSliceItem | null => {
-    const itemsWithProbs = itemsToSelectFrom.filter(item => typeof item.probability === 'number' && item.probability > 0);
+    console.log('开始进行概率选择');
+    
+    // 检查是否有带概率的选项
+    const itemsWithProbs = itemsToSelectFrom.filter(item => 
+      typeof item.probability === 'number' && item.probability > 0
+    );
+    
+    // 如果没有带概率的选项，则等概率随机选择
     if (itemsWithProbs.length === 0) {
-        const uniqueValues = Array.from(new Set(itemsToSelectFrom.map(item => item.value)));
-        if (uniqueValues.length > 0) {
-            const randomIndex = Math.floor(Math.random() * uniqueValues.length);
-            const randomValue = uniqueValues[randomIndex];
-            return itemsToSelectFrom.find(item => item.value === randomValue) || null;
-        }
-        return null;
+      console.log('无概率配置项，进行等概率随机选择');
+      if (itemsToSelectFrom.length === 0) return null;
+      
+      const randomIndex = Math.floor(Math.random() * itemsToSelectFrom.length);
+      console.log(`随机选择索引: ${randomIndex}, 总项数: ${itemsToSelectFrom.length}`);
+      return itemsToSelectFrom[randomIndex];
     }
-    const totalProbability = itemsWithProbs.reduce((sum, item) => sum + (item.probability!), 0);
-    let randomRoll = Math.random() * totalProbability;
+    
+    // 基于概率权重选择
+    console.log('基于权重进行概率选择');
+    const totalProbability = itemsWithProbs.reduce((sum, item) => 
+      sum + (typeof item.probability === 'number' ? item.probability : 0), 0
+    );
+    
+    console.log(`总概率: ${totalProbability}`);
+    
+    // 生成0-1之间的随机数
+    const randomRoll = Math.random();
+    console.log(`随机数: ${randomRoll}`);
+    
+    // 累计概率，找到命中的区间
+    let accumulatedProb = 0;
     for (const item of itemsWithProbs) {
-      if (randomRoll < item.probability!) { return item; }
-      randomRoll -= item.probability!;
+      accumulatedProb += (item.probability || 0);
+      console.log(`项目: ${item.text}, 概率: ${item.probability}, 累计: ${accumulatedProb}`);
+      
+      // 如果随机数小于等于累计概率，则选中当前项
+      if (randomRoll <= accumulatedProb) {
+        console.log(`选中: ${item.text}`);
+        return item;
+      }
     }
+    
+    // 如果没有选中任何项（浮点数精度问题可能导致），则选择最后一个有概率的项
+    console.log(`未命中任何项，选择最后一个: ${itemsWithProbs.length > 0 ? itemsWithProbs[itemsWithProbs.length - 1].text : 'none'}`);
     return itemsWithProbs.length > 0 ? itemsWithProbs[itemsWithProbs.length - 1] : null;
   }, []);
 
@@ -314,17 +342,135 @@ export default function YesNoWheel(props: YesNoWheelProps) {
   const prepareWheelSlices = useCallback((items: WheelSliceItem[], repeats: number) => {
     // 获取可用的背景颜色总数
     const getAvailableColors = () => {
-      const colors = [];
+      const colors: string[] = [];
       for (let i = 1; i <= 10; i++) {
         colors.push(`var(--wheel-color${i})`);
       }
       return colors;
     };
     
+    // 安全地访问数组元素的辅助函数
+    const safeGet = <T,>(arr: T[], index: number): T | undefined => {
+      return index >= 0 && index < arr.length ? arr[index] : undefined;
+    };
+    
     const colors = getAvailableColors();
     
+    // 处理概率计算
+    const processedItems = [...items]; // 复制一份以免修改原始数据
+    
+    // 扫描一遍，检查是否存在累积概率超过1的情况
+    let cumulativeProbability = 0;
+    let cutoffIndex = -1; // 超过概率1的截断点
+    
+    // 第一遍扫描，找出截断点
+    for (let i = 0; i < processedItems.length; i++) {
+      const item = safeGet(processedItems, i);
+      if (item && typeof item.probability === 'number' && item.probability > 0) {
+        cumulativeProbability += item.probability;
+        
+        // 如果累计概率超过1，记录截断点
+        if (cumulativeProbability >= 0.9999 && cutoffIndex === -1) { // 使用0.9999避免浮点精度问题
+          cutoffIndex = i;
+          console.log(`截断点设置为索引 ${cutoffIndex}，累计概率: ${cumulativeProbability}`);
+        }
+      }
+    }
+    
+    // 如果找到了截断点，将截断点之后的所有选项概率设为0
+    if (cutoffIndex !== -1) {
+      console.log(`发现概率总和已达到1，将索引 ${cutoffIndex + 1} 及之后的所有选项概率设为0`);
+      for (let i = cutoffIndex + 1; i < processedItems.length; i++) {
+        const item = safeGet(processedItems, i);
+        if (item) {
+          item.probability = 0;
+        }
+      }
+      
+      // 如果前几项概率总和超过1，需要进行缩放以确保总和为1
+      if (cumulativeProbability > 1.0001) { // 容忍一点浮点误差
+        console.log(`概率总和 ${cumulativeProbability} 超过1，进行比例缩放`);
+        let sumBeforeCutoff = 0;
+        
+        // 计算截断点及之前的概率总和
+        for (let i = 0; i <= cutoffIndex; i++) {
+          const item = safeGet(processedItems, i);
+          if (item && typeof item.probability === 'number') {
+            sumBeforeCutoff += item.probability;
+          }
+        }
+        
+        // 按比例缩放截断点及之前的概率
+        for (let i = 0; i <= cutoffIndex; i++) {
+          const item = safeGet(processedItems, i);
+          if (item && typeof item.probability === 'number' && item.probability > 0) {
+            item.probability = item.probability / sumBeforeCutoff;
+          }
+        }
+      }
+    } else if (cumulativeProbability > 0) {
+      // 有概率值但总和未达到1的情况
+      if (Math.abs(cumulativeProbability - 1) < 0.0001) {
+        // 概率总和约等于1，将未指定概率的项设为0
+        processedItems.forEach(item => {
+          if (typeof item.probability !== 'number') {
+            item.probability = 0;
+          }
+        });
+      } else if (cumulativeProbability < 1) {
+        // 概率总和小于1，最后一个有概率的选项补充剩余概率
+        let lastProbIndex = -1;
+        for (let i = processedItems.length - 1; i >= 0; i--) {
+          const item = safeGet(processedItems, i);
+          if (item && typeof item.probability === 'number' && item.probability > 0) {
+            lastProbIndex = i;
+            break;
+          }
+        }
+        
+        if (lastProbIndex !== -1) {
+          const remainingProb = 1 - cumulativeProbability;
+          console.log(`将剩余概率 ${remainingProb} 分配给索引 ${lastProbIndex} 的选项`);
+          const lastItem = safeGet(processedItems, lastProbIndex);
+          if (lastItem) {
+            lastItem.probability = (lastItem.probability || 0) + remainingProb;
+          }
+        }
+        
+        // 将未指定概率的项设为0
+        processedItems.forEach(item => {
+          if (typeof item.probability !== 'number') {
+            item.probability = 0;
+          }
+        });
+      } else {
+        // 概率总和大于1但没有找到截断点的情况（理论上不应该发生）
+        console.log('概率总和大于1但无明确截断点，按比例缩放所有概率');
+        processedItems.forEach(item => {
+          if (typeof item.probability === 'number' && item.probability > 0) {
+            item.probability = item.probability / cumulativeProbability;
+          } else {
+            item.probability = 0;
+          }
+        });
+      }
+    } else {
+      // 无概率值的情况，均等分配
+      console.log('未检测到概率配置，均等分配概率');
+      const equalProb = 1 / processedItems.length;
+      processedItems.forEach(item => {
+        item.probability = equalProb;
+      });
+    }
+    
+    // 输出最终概率分配
+    console.log('最终概率分配:');
+    processedItems.forEach((item, index) => {
+      console.log(`${index}. ${item.text}: ${item.probability}`);
+    });
+    
     // 标准化项目数据，填充缺失的属性
-    const normalizedItems = items.map((item, index) => {
+    const normalizedItems = processedItems.map((item, index) => {
       return {
         text: item.text,
         value: item.value || item.text, // 如果没有value，使用text
@@ -558,6 +704,7 @@ export default function YesNoWheel(props: YesNoWheelProps) {
               </span>
             ))}
           </div>
+          
           <div className="no_of_items">
             <h2>Number of Items to Show</h2>
             <div className="items">

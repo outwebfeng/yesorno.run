@@ -19,7 +19,8 @@ export default function Page() {
       message: "Go for it!",
       background: "var(--wheel-color1)", 
       resultIcon: 'success',
-      resultTitle: "Sure!"
+      resultTitle: "Sure!",
+      probability: 0.5
     },
     {
       text: "NO",
@@ -27,30 +28,9 @@ export default function Page() {
       message: "You may need to consider not doing it!",
       background: "var(--wheel-color2)", 
       resultIcon: 'error',
-      resultTitle: "Attention!"
+      resultTitle: "Attention!",
+      probability: 0.5
     },
-    {
-      text: "Maybe1",
-      value: "maybe1",
-      message: "You may need to consider not doing it!",
-      background: "var(--wheel-color3)", 
-      resultIcon: 'warning',
-      resultTitle: "mmm bbb !"
-    },
-    {
-      text: "Cool111",
-      value: "cool111",
-      message: "You may need to consider not doing it!",
-      background: "var(--wheel-color4)", 
-      resultIcon: 'info',
-      resultTitle: "Cool!"
-    },
-    {
-      text: "Simple"
-    },
-    {
-      text: "Easy"
-    }
   ], []);
 
   const handleSpinResult = useCallback((result: WheelSliceItem) => {

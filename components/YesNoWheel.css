@@ -671,4 +671,58 @@
   letter-spacing: 0.5px;
   stroke: rgba(0, 0, 0, 0.3);
   stroke-width: 0.5px;
+}
+
+/* 概率面板样式 */
+.probability-panel {
+  background-color: rgba(0, 0, 0, 0.04);
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 30px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.probability-panel h2 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  text-align: center;
+  color: #444;
+}
+
+.probability-items {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.probability-item {
+  transition: all 0.2s ease;
+}
+
+.probability-item:hover {
+  transform: translateX(2px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+  .probability-panel {
+    padding: 12px;
+    margin-bottom: 20px;
+  }
+  
+  .probability-panel h2 {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 375px) {
+  .probability-panel {
+    padding: 10px;
+    margin-bottom: 15px;
+  }
+  
+  .probability-panel h2 {
+    font-size: 16px;
+  }
 } 

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useRef, useCallback } from 'react';
+import { useEffect, useState, useRef, useCallback, useMemo } from 'react';
 import Swal from 'sweetalert2';
 import './YesNoWheel.css';
 
@@ -51,10 +51,40 @@ export default function YesNoWheel(props: YesNoWheelProps) {
   const currentSpinIdRef = useRef(0);
   const lastProcessedSpinIdRef = useRef(-1);
 
-  // State for right-side controls
-  const [yesCount, setYesCount] = useState(0);
-  const [noCount, setNoCount] = useState(0);
+  // 使用动态对象来存储各选项的计数
+  const [counters, setCounters] = useState<Record<string, number>>({});
   const [activeSliceRepeats, setActiveSliceRepeats] = useState(showControls ? initialSliceRepeats : sliceRepeats);
+
+  // 创建一个映射，存储每个选项对应的背景色
+  const colorMap = useMemo(() => {
+    const map: Record<string, string> = {};
+    if (customItems && customItems.length > 0) {
+      customItems.forEach(item => {
+        const key = String(item.value).toLowerCase();
+        map[key] = item.background || 'var(--wheel-color1)';
+      });
+    }
+    return map;
+  }, [customItems]);
+
+  // 初始化计数器
+  useEffect(() => {
+    if (customItems && customItems.length > 0) {
+      // 获取所有唯一的value值
+      const uniqueValues = Array.from(new Set(customItems.map(item => String(item.value).toLowerCase())));
+      
+      // 初始化计数器对象
+      const initialCounters: Record<string, number> = {};
+      uniqueValues.forEach(value => {
+        initialCounters[value] = 0;
+      });
+      
+      console.log('初始化动态计数器:', initialCounters);
+      
+      // 设置计数器状态
+      setCounters(initialCounters);
+    }
+  }, [customItems]);
 
   // Store onSpinComplete in a ref to keep initializeWheel stable if onSpinComplete changes (though parent should memoize it)
   const onSpinCompleteRef = useRef(onSpinComplete);
@@ -66,20 +96,16 @@ export default function YesNoWheel(props: YesNoWheelProps) {
   const latestPropsAndStateRef = useRef({
     customItems,
     showControls,
-    setYesCount, // setState actions are stable
-    setNoCount,  // setState actions are stable
-    onSpinCompleteRef,
-    processedResultIds: new Set<string>() // 添加处理过的结果ID集合
+    setCounters, // 使用单一的setter来更新所有计数器
+    onSpinCompleteRef
   });
 
   useEffect(() => {
     latestPropsAndStateRef.current = {
       customItems,
       showControls,
-      setYesCount,
-      setNoCount,
-      onSpinCompleteRef,
-      processedResultIds: new Set<string>()
+      setCounters,
+      onSpinCompleteRef
     };
   }, [customItems, showControls, onSpinCompleteRef]); // Dependencies: things that the stable handler needs access to
 
@@ -174,8 +200,7 @@ export default function YesNoWheel(props: YesNoWheelProps) {
     const {
       customItems: currentCustomItems,
       showControls: currentShowControls,
-      setYesCount: currentSetYesCount,
-      setNoCount: currentSetNoCount,
+      setCounters: currentSetCounters,
       onSpinCompleteRef: currentOnSpinCompleteRef
     } = latestPropsAndStateRef.current;
 
@@ -188,8 +213,15 @@ export default function YesNoWheel(props: YesNoWheelProps) {
       if (currentShowControls) {
         const valStr = String(winningItem.value).toLowerCase();
         console.log(`增加计数: ${valStr}`);
-        if (valStr === 'yes') currentSetYesCount(prev => prev + 1);
-        else if (valStr === 'no') currentSetNoCount(prev => prev + 1);
+        currentSetCounters(prev => {
+          // 如果该选项不在计数器中，先添加它
+          if (!(valStr in prev)) {
+            console.log(`添加新的计数选项: ${valStr}`);
+            return { ...prev, [valStr]: 1 };
+          }
+          // 否则增加现有计数
+          return { ...prev, [valStr]: prev[valStr] + 1 };
+        });
       }
       Swal.fire({ icon: (winningItem.resultIcon || 'info') as any, title: winningItem.resultTitle || 'Result!', text: winningItem.message, width: window.innerWidth < 768 ? '85%' : '32em', confirmButtonText: 'OK', heightAuto: true, customClass: { popup: 'wheel-popup', title: 'wheel-popup-title', htmlContainer: 'wheel-popup-content', confirmButton: 'wheel-popup-button' }});
     } else { console.error(`Winning value ${superWheelRawResult.value} not found.`); }
@@ -255,7 +287,17 @@ export default function YesNoWheel(props: YesNoWheelProps) {
             message: s.message, 
             background: s.background 
           })),
-          text: { color: '#ffffff', offset: 11, letterSpacing: 0, orientation: 'v', size: 16, align: 'center', arc: false, rotate: false },
+          text: { 
+            color: '#ffffff', 
+            offset: 8,           // 减小offset值，让文字位置更靠近外圈中心
+            letterSpacing: 0, 
+            orientation: 'v',    // 垂直方向文本
+            size: 22,            // 增大文字尺寸为22px
+            align: 'center',     // 文本居中对齐
+            arc: true,           // 将arc设为true，使文字沿着扇形弧线排列
+            rotate: true,        // 将rotate设为true，让文字方向跟随扇形
+            margin: 10           // 增加margin使文字与边缘保持更多距离
+          },
           slice: { selected: { background: "var(--wheel-color1)" } },
           line: { width: 4, color: "var(--wheel-line-color)" },
           outer: { width: 8, color: "var(--wheel-line-color)" },
@@ -348,8 +390,19 @@ export default function YesNoWheel(props: YesNoWheelProps) {
       {showControls && (
         <div className="right">
           <div className="tries">
-            <span className="yes">{yesCount}</span>
-            <span className="no">{noCount}</span>
+            {Object.entries(counters).map(([value, count]) => (
+              <span 
+                key={value} 
+                className={`counter-${value}`} 
+                data-label={value.toUpperCase()}
+                style={{
+                  color: colorMap[value] || 'var(--wheel-color1)', 
+                  borderBottom: `3px solid ${colorMap[value] || 'var(--wheel-color1)'}`
+                }}
+              >
+                {count}
+              </span>
+            ))}
           </div>
           <div className="no_of_items">
             <h2>Number of Items to Show</h2>

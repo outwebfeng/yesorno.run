@@ -16,18 +16,34 @@ export default function Page() {
     {
       text: "YES",
       value: "yes",
-      message: "Great! It's a YES!",
-      background: "var(--wheel-color1)", // Example color from your CSS
+      message: "Go for it!",
+      background: "var(--wheel-color1)", 
       resultIcon: 'success',
-      resultTitle: "Affirmative!"
+      resultTitle: "Sure!"
     },
     {
       text: "NO",
       value: "no",
-      message: "Hmm, it's a NO.",
-      background: "var(--wheel-color2)", // Example color from your CSS
+      message: "You may need to consider not doing it!",
+      background: "var(--wheel-color2)", 
       resultIcon: 'error',
-      resultTitle: "Negative!"
+      resultTitle: "Attention!"
+    },
+    {
+      text: "Maybe1",
+      value: "maybe1",
+      message: "You may need to consider not doing it!",
+      background: "var(--wheel-color3)", 
+      resultIcon: 'warning',
+      resultTitle: "mmm bbb !"
+    },
+    {
+      text: "Cool111",
+      value: "cool111",
+      message: "You may need to consider not doing it!",
+      background: "var(--wheel-color4)", 
+      resultIcon: 'info',
+      resultTitle: "Cool!"
     },
   ], []);
 

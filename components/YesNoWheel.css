@@ -2,6 +2,13 @@
   --wheel-color1: #6366f1;  /* 主蓝色 */
   --wheel-color2: #f43f5e;  /* 红色，与蓝色对比鲜明 */
   --wheel-color3: #10b981;  /* 绿色，作为"可能"的颜色 */
+  --wheel-color4: #0ea5e9;  /* 天蓝色 */
+  --wheel-color5: #8b5cf6;  /* 紫色 */
+  --wheel-color6: #f59e0b;  /* 橙色 */
+  --wheel-color7: #ec4899;  /* 粉色 */
+  --wheel-color8: #14b8a6;  /* 青色 */
+  --wheel-color9: #6d28d9;  /* 深紫色 */
+  --wheel-color10: #84cc16; /* 黄绿色 */
   --wheel-line-color: #4f46e5;  /* 深蓝色作为线条 */
 }
 
@@ -320,19 +327,22 @@
 
 .tries {
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start; /* 从左侧开始排列 */
   width: 100%;
-  margin: 0 0 35px;
+  margin: 0 0 45px; /* 增加底部间距，为标签留出空间 */
   padding: 15px;
-  background: linear-gradient(to right, rgba(99, 102, 241, 0.05), rgba(244, 63, 94, 0.05));
+  background: linear-gradient(to right, rgba(99, 102, 241, 0.05), rgba(244, 63, 94, 0.05), rgba(16, 185, 129, 0.05));
   border-radius: 12px;
   position: relative;
+  flex-wrap: wrap;
+  gap: 15px; /* 增加间距 */
+  row-gap: 35px; /* 行间距更大，为标签留出空间 */
 }
 
-.tries span {
+.wheel_wrapper_main .tries span {
   display: inline-block;
-  padding: 8px 15px;
-  margin: 0 5px;
+  padding: 8px 10px;
+  margin: 0 3px;
   position: relative;
   background: white;
   border-radius: 8px;
@@ -340,26 +350,37 @@
   font-weight: 700;
   font-size: 18px;
   cursor: default;
-  min-width: 100px;
+  min-width: 80px;
   text-align: center;
   transition: all 0.2s;
+  flex: 1 0 calc(33.333% - 20px); /* 每行最多3个，考虑间距 */
+  max-width: calc(33.333% - 20px); /* 限制最大宽度 */
+  color: #6366f1; /* 默认颜色 */
+  border-bottom: 3px solid #6366f1; /* 默认边框颜色 */
 }
 
-.wheel_wrapper_main .tries span.yes {
+/* 为常见选项添加默认样式 */
+.wheel_wrapper_main .tries span.counter-yes {
   color: #6366f1;
   border-bottom: 3px solid #6366f1;
 }
 
-.wheel_wrapper_main .tries span.no {
+.wheel_wrapper_main .tries span.counter-no {
   color: #f43f5e;
   border-bottom: 3px solid #f43f5e;
 }
 
-.wheel_wrapper_main .tries span.maybe {
+.wheel_wrapper_main .tries span.counter-maybe {
   color: #10b981;
   border-bottom: 3px solid #10b981;
 }
 
+.wheel_wrapper_main .tries span.counter-cool {
+  color: #0ea5e9;
+  border-bottom: 3px solid #0ea5e9;
+}
+
+/* 为所有计数器添加文本标签 */
 .wheel_wrapper_main .tries span:after {
   position: absolute;
   bottom: -25px;
@@ -368,21 +389,15 @@
   left: 50%;
   transform: translateX(-50%);
   white-space: nowrap;
+  content: attr(data-label);
+  color: inherit;
 }
 
-.wheel_wrapper_main .tries span.yes:after {
-  content: 'YES';
-  color: #6366f1;
-}
-
-.wheel_wrapper_main .tries span.no:after {
-  content: 'NO';
-  color: #f43f5e;
-}
-
+/* 删除旧的固定标签 */
+.wheel_wrapper_main .tries span.yes:after,
+.wheel_wrapper_main .tries span.no:after,
 .wheel_wrapper_main .tries span.maybe:after {
-  content: 'MAY BE';
-  color: #10b981;
+  content: none;
 }
 
 .buttons {
@@ -491,15 +506,21 @@
 }
 
 .sWheel-txt {
-  font-size: 24px !important;
+  font-size: 22px !important;
+  font-weight: 800 !important;
 }
 
 .sWheel-txt text {
   font-size: inherit !important;
+  font-weight: inherit !important;
+  text-shadow: 0 2px 3px rgba(0, 0, 0, 0.7) !important;
 }
 
 .sWheel-txt textPath {
   font-size: inherit !important;
+  font-weight: inherit !important;
+  dominant-baseline: middle !important;
+  text-anchor: middle !important;
 }
 
 .wheel-popup {
@@ -532,75 +553,122 @@
 @media (max-width: 768px) {
   .wheel_wrapper_main {
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    padding: 10px;
+    gap: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
-  
+
   .wheel-horizontal {
-    margin-right: 0;
+    min-width: 280px;
     max-width: 350px;
-    margin-bottom: 20px;
+    margin: 10px auto;
   }
-  
+
   .sWheel-wrapper {
-    width: 100% !important;
+    max-width: 350px;
   }
-  
+
   .right {
-    max-width: 100%;
+    padding: 15px;
   }
-  
+
   .button.button-primary {
     width: 60px;
     height: 60px;
-    font-size: 20px;
+    font-size: 22px;
   }
-  
+
   .tries {
-    margin-bottom: 35px;
+    padding: 12px;
+    margin-bottom: 30px;
+    row-gap: 30px; /* 稍微减小行间距 */
+    gap: 10px; /* 减小间距 */
+    justify-content: center; /* 居中显示 */
   }
-  
-  .tries span {
-    padding: 6px 12px;
+
+  .wheel_wrapper_main .tries span {
+    padding: 6px 6px;
     font-size: 16px;
-    min-width: 40px;
+    min-width: 60px;
+    margin: 0 2px;
+    flex: 1 0 calc(50% - 10px); /* 每行最多2个 */
+    max-width: calc(50% - 10px);
+  }
+
+  .wheel_wrapper_main .tries span:after {
+    bottom: -18px;
+    font-size: 11px;
   }
   
-  .wheel_wrapper_main .tries span:after {
-    bottom: -22px;
-    font-size: 12px;
+  .sWheel-txt {
+    font-size: 18px !important;
   }
 }
 
 @media (max-width: 375px) {
   .wheel-horizontal {
     min-width: 250px;
-    max-width: 280px;
+    max-width: 300px;
   }
-  
+
   .sWheel-wrapper {
-    max-width: 280px;
+    max-width: 300px;
   }
-  
+
   .items button {
-    padding: 6px 12px;
+    padding: 6px 10px;
     font-size: 12px;
   }
-  
+
   .button.button-primary {
     width: 50px;
     height: 50px;
-    font-size: 18px;
+    font-size: 20px;
+  }
+
+  .wheel_wrapper_main .tries span {
+    padding: 5px 3px;
+    font-size: 14px;
+    min-width: 50px;
+    margin: 0 1px;
+    flex: 1 0 calc(50% - 6px); /* 每行最多2个，更小的间距 */
+    max-width: calc(50% - 6px);
+  }
+
+  .wheel_wrapper_main .tries span:after {
+    bottom: -18px;
+    font-size: 10px;
   }
   
-  .tries span {
-    padding: 4px 10px;
-    font-size: 14px;
-    min-width: 35px;
+  .sWheel-txt {
+    font-size: 16px !important;
+  }
+}
+
+/* 超小屏幕设备 */
+@media (max-width: 320px) {
+  .wheel_wrapper_main .tries span {
+    flex: 1 0 100%; /* 每行只显示1个 */
+    max-width: 100%;
+    margin-bottom: 25px; /* 增加垂直间距 */
   }
   
   .wheel_wrapper_main .tries span:after {
-    bottom: -20px;
-    font-size: 11px;
+    bottom: -16px;
   }
+}
+
+/* 增加扇区文字居中的CSS */
+.sWheel-txt-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 增强文字显示效果 */
+.sWheel-txt text, .sWheel-txt textPath {
+  letter-spacing: 0.5px;
+  stroke: rgba(0, 0, 0, 0.3);
+  stroke-width: 0.5px;
 } 

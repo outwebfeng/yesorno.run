@@ -26,7 +26,7 @@ export default function Navigation() {
         </div>
         <QuickMenu />
         <div className='flex items-center gap-x-4'>
-          {/* <LocaleSwitcher /> */}
+          <LocaleSwitcher />
         </div>
       </nav>
     </header>

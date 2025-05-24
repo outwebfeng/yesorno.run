@@ -14,6 +14,7 @@
     "logoAlt": "Yes or No Logo",
     "logoTitle": "Yes or No",
     "Home": "Home",
+    "YesWheel": "Yes Wheel",
     "Features": "Features",
     "Introduction": "Introduction",
     "FAQ": "FAQ",
@@ -202,5 +203,143 @@
     "support": "Support",
     "privacy": "Privacy Policy",
     "termsConditions": "Terms & Conditions"
+  },
+  "YesWheel": {
+    "title": "Yes Wheel",
+    "subTitle": "A wheel designed to give positive answers - Get psychological encouragement and confidence support!",
+    "keywords": "yes wheel,positive psychology,confidence support,psychological suggestion,positive energy,decision tool",
+    "Wheel": {
+      "items": [
+        {
+          "text": "Yes",
+          "value": "yes",
+          "message": "Excellent! Trust your choice and move forward with confidence!",
+          "resultTitle": "Positive Answer"
+        },
+        {
+          "text": "No",
+          "value": "no",
+          "message": "Try again!",
+          "resultTitle": "Negative Answer"
+        }
+      ]
+    },
+    "Features": {
+      "title": "Key Features",
+      "items": [
+        {
+          "title": "100% Positive Results",
+          "description": "This wheel is specifically designed to always give positive answers, helping you build confidence and maintain a positive mindset."
+        },
+        {
+          "title": "Psychological Support Tool",
+          "description": "When you need encouragement and affirmation, this wheel provides psychological comfort and positive suggestions."
+        },
+        {
+          "title": "Confidence Building",
+          "description": "By receiving positive answers, it helps you enhance self-confidence and face challenges bravely."
+        },
+        {
+          "title": "Positive Psychological Suggestion",
+          "description": "Utilizes positive psychological suggestion effects to help you maintain an optimistic and positive mindset."
+        }
+      ]
+    },
+    "Welcome": {
+      "title": "Welcome to Yes Wheel",
+      "description": "Yes Wheel is a special decision tool designed specifically for moments when you need encouragement, support, and positive answers. Whatever choices or challenges you face, this wheel will give you positive responses, helping you build confidence and maintain an optimistic mindset."
+    },
+    "WhatIs": {
+      "title": "What is Yes Wheel?",
+      "description": "Yes Wheel is a psychological support tool that always gives positive answers. This is not a random decision tool, but specifically designed to provide positive psychological suggestions. When you need encouragement, support, or want to reinforce a positive decision, Yes Wheel can provide the psychological support you need."
+    },
+    "HowToUse": {
+      "title": "How to Use",
+      "steps": [
+        {
+          "step": "Think About Your Question",
+          "description": "Consider a question or decision you hope to get a positive answer for."
+        },
+        {
+          "step": "Click the Wheel",
+          "description": "Click the wheel to start spinning and enjoy the process."
+        },
+        {
+          "step": "Accept the Positive Answer",
+          "description": "The wheel will give you a positive answer - accept this encouragement and support."
+        },
+        {
+          "step": "Take Action",
+          "description": "With this confidence and affirmation, take brave action."
+        }
+      ]
+    },
+    "WhyChoose": {
+      "title": "Why Choose Yes Wheel?",
+      "items": [
+        {
+          "title": "Psychological Comfort",
+          "description": "Provides psychological comfort and positive energy when you need encouragement and support."
+        },
+        {
+          "title": "Confidence Building",
+          "description": "Helps you build self-confidence and believe in your abilities and choices."
+        },
+        {
+          "title": "Positive Suggestion",
+          "description": "Through positive psychological suggestions, helps you maintain an optimistic and positive mindset."
+        },
+        {
+          "title": "Simple to Use",
+          "description": "Easy to operate, you can get the encouragement and support you need anytime, anywhere."
+        }
+      ]
+    },
+    "Benefits": {
+      "title": "Benefits of Use",
+      "items": [
+        {
+          "title": "Enhanced Confidence",
+          "description": "By receiving positive answers, helps you enhance self-confidence and believe more in your abilities."
+        },
+        {
+          "title": "Reduced Anxiety",
+          "description": "When you feel uncertain about a decision, positive answers can reduce anxiety and worry."
+        },
+        {
+          "title": "Positive Mindset",
+          "description": "Cultivates a positive and optimistic mindset, helping you face life's challenges in a better state."
+        },
+        {
+          "title": "Action Motivation",
+          "description": "After receiving encouragement, you'll have more motivation to achieve your goals and plans."
+        }
+      ]
+    },
+    "Faq": {
+      "title": "Frequently Asked Questions",
+      "questions": [
+        {
+          "question": "Why does this wheel always give positive answers?",
+          "answer": "Yes Wheel is specifically designed as a tool to provide psychological support and encouragement. Its purpose is not random decision-making, but to provide support when you need confidence and affirmation."
+        },
+        {
+          "question": "When is this tool suitable to use?",
+          "answer": "You can use this tool when you need encouragement, lack confidence, hesitate about a positive decision, or want to get psychological support."
+        },
+        {
+          "question": "What effects will using Yes Wheel have?",
+          "answer": "It can provide positive psychological suggestions, help you build confidence, reduce anxiety, maintain an optimistic mindset, and give you motivation to take action."
+        },
+        {
+          "question": "Is this tool scientific?",
+          "answer": "Although the results are predetermined, positive psychological suggestion has scientific basis in psychology. It can help improve mindset and enhance self-confidence."
+        },
+        {
+          "question": "Can I use it to make important decisions?",
+          "answer": "Yes Wheel is mainly used for psychological support and encouragement. For important decisions, it's recommended to combine rational analysis and multi-faceted considerations."
+        }
+      ]
+    }
   }
 }

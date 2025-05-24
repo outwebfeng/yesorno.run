@@ -11,11 +11,11 @@ export default function QuickMenu() {
 
   const menuItems = [
     { id: 'Home', label: 'Home', path: '/' },
-    { id: 'YesWheel', label: 'YesWheel', path: '/yeswheel' },
-    { id: 'NoWheel', label: 'NoWheel', path: '/nowheel' },
     { id: 'Features', label: 'Features', path: '/#features' },
     { id: 'Introduction', label: 'Introduction', path: '/#introduction' },
     { id: 'FAQ', label: 'FAQ', path: '/#faq' },
+    { id: 'YesWheel', label: 'YesWheel', path: '/yeswheel' },
+    { id: 'NoWheel', label: 'NoWheel', path: '/nowheel' },
   ];
 
   const handleMenuClick = (path: string) => {

@@ -620,9 +620,25 @@ export default function YesNoWheel(props: YesNoWheelProps) {
               console.log('ignore click');
             }
           });
-          
         } else {
           console.error('找不到转盘按钮元素');
+        }
+        
+        // 为整个转盘区域添加点击事件
+        // 绑定点击事件到 .sWheel 和 .sWheel-inner 元素
+        const wheelArea = $(wheelRef.current).find('.sWheel, .sWheel-inner, .sWheel-bg');
+        if (wheelArea.length) {
+          wheelArea.css('cursor', 'pointer'); // 添加指针样式，提示用户可点击
+          wheelArea.on('click', function(e: MouseEvent) {
+            // 确保点击事件不是从按钮传播上来的
+            if (!$(e.target).closest('#wheel-spin-button').length) {
+              e.preventDefault();
+              e.stopPropagation();
+              if (!isSpinning.current) {
+                handleSpin();
+              }
+            }
+          });
         }
         
       } catch (error) {

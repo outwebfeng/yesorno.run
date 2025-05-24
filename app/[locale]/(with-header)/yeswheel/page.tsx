@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 import YesNoWheel from '@/components/YesNoWheel';
 import type { WheelSliceItem } from '@/components/YesNoWheel';
 import { useCallback, useMemo } from 'react';
+import MoreTools from '@/components/home/MoreTools';
 
 // 静态导入ScrollToTop组件
 const ScrollToTop = dynamic(() => import('@/components/page/ScrollToTop'), { ssr: false });
@@ -54,6 +55,9 @@ export default function YesWheelPage() {
           
           <YesNoWheel customItems={yesWheelItems} sliceRepeats={3} onSpinComplete={handleSpinResult} />
         </section>
+
+        {/* More Tools Section */}
+        <MoreTools />
 
         {/* Features Section */}
         <section className='rounded-2xl bg-white p-8 shadow-xl backdrop-blur-sm bg-white/80 border border-slate-100'>

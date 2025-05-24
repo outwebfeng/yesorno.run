@@ -14,6 +14,7 @@
     "logoAlt": "Yes or No Logo",
     "logoTitle": "Yes or No",
     "Home": "Home",
+    "MoreTools": "More Tools",
     "YesWheel": "Yes Wheel",
     "NoWheel": "No Wheel",
     "Features": "Features",
@@ -28,6 +29,25 @@
   "Home": {
     "title": "Yes or No",
     "subTitle": "The Ultimate Random Decision Maker - When You Need a Simple Yes or No Answer",
+    "MoreTools": {
+      "title": "More Decision-Making Tools",
+      "subTitle": "Explore our suite of specialized decision-making tools designed to help you with different types of choices",
+      "tryNow": "Try Now",
+      "tools": {
+        "yesOrNo": {
+          "label": "Yes or No",
+          "description": "The classic random decision maker for when you need a simple yes or no answer to any question."
+        },
+        "yesWheel": {
+          "label": "Yes Wheel",
+          "description": "A positive-focused wheel that provides encouragement and confidence-building results."
+        },
+        "noWheel": {
+          "label": "No Wheel",
+          "description": "Designed to help you identify what to avoid and set healthy boundaries in your decision-making."
+        }
+      }
+    },
     "Welcome": {
       "title": "Welcome to Yes or No - Your Ultimate Decision Making Tool",
       "description": "Yes or No is a powerful, browser-based decision making tool that provides instant yes or no answers when you need them most. Perfect for resolving indecision, settling debates, or adding fun to group activities, our Yes or No generator offers features like silent question thinking, visual animations, answer history, and more. Without any downloads or complex setup, Yes or No helps you make decisions quickly and randomly, eliminating the stress of choice."

@@ -87,8 +87,6 @@ export default function YesNoWheel(props: YesNoWheelProps) {
         initialCounters[value] = 0;
       });
       
-      console.log('初始化动态计数器:', initialCounters);
-      
       // 设置计数器状态
       setCounters(initialCounters);
     }
@@ -151,7 +149,6 @@ export default function YesNoWheel(props: YesNoWheelProps) {
   }, []);
 
   const selectItemByProbability = useCallback((itemsToSelectFrom: WheelSliceItem[]): WheelSliceItem | null => {
-    console.log('开始进行概率选择');
     
     // 检查是否有带概率的选项
     const itemsWithProbs = itemsToSelectFrom.filter(item => 
@@ -160,41 +157,32 @@ export default function YesNoWheel(props: YesNoWheelProps) {
     
     // 如果没有带概率的选项，则等概率随机选择
     if (itemsWithProbs.length === 0) {
-      console.log('无概率配置项，进行等概率随机选择');
       if (itemsToSelectFrom.length === 0) return null;
       
       const randomIndex = Math.floor(Math.random() * itemsToSelectFrom.length);
-      console.log(`随机选择索引: ${randomIndex}, 总项数: ${itemsToSelectFrom.length}`);
       return itemsToSelectFrom[randomIndex];
     }
     
     // 基于概率权重选择
-    console.log('基于权重进行概率选择');
     const totalProbability = itemsWithProbs.reduce((sum, item) => 
       sum + (typeof item.probability === 'number' ? item.probability : 0), 0
     );
     
-    console.log(`总概率: ${totalProbability}`);
-    
     // 生成0-1之间的随机数
     const randomRoll = Math.random();
-    console.log(`随机数: ${randomRoll}`);
     
     // 累计概率，找到命中的区间
     let accumulatedProb = 0;
     for (const item of itemsWithProbs) {
       accumulatedProb += (item.probability || 0);
-      console.log(`项目: ${item.text}, 概率: ${item.probability}, 累计: ${accumulatedProb}`);
       
       // 如果随机数小于等于累计概率，则选中当前项
       if (randomRoll <= accumulatedProb) {
-        console.log(`选中: ${item.text}`);
         return item;
       }
     }
     
     // 如果没有选中任何项（浮点数精度问题可能导致），则选择最后一个有概率的项
-    console.log(`未命中任何项，选择最后一个: ${itemsWithProbs.length > 0 ? itemsWithProbs[itemsWithProbs.length - 1].text : 'none'}`);
     return itemsWithProbs.length > 0 ? itemsWithProbs[itemsWithProbs.length - 1] : null;
   }, []);
 
@@ -208,17 +196,14 @@ export default function YesNoWheel(props: YesNoWheelProps) {
     // 添加点击防抖，避免快速多次点击
     const now = Date.now();
     if (now - lastClickTimeRef.current < 500) { // 500ms内不允许再次点击
-      console.log('点击过于频繁，忽略此次点击');
       return;
     }
     lastClickTimeRef.current = now;
     
-    console.log('开始旋转操作');
     isSpinning.current = true;
     
     // 为每次旋转分配一个新的ID
     currentSpinIdRef.current += 1;
-    console.log(`开始新的旋转, 旋转ID: ${currentSpinIdRef.current}`);
     
     let targetItem: WheelSliceItem | null = selectItemByProbability(customItems);
     if (targetItem) {
@@ -248,13 +233,11 @@ export default function YesNoWheel(props: YesNoWheelProps) {
     
     // 如果已经处理过这个旋转，直接返回
     if (spinId <= lastProcessedSpinIdRef.current) {
-      console.log(`忽略重复的旋转完成事件，当前ID: ${spinId}, 已处理到: ${lastProcessedSpinIdRef.current}`);
       return;
     }
     
     // 标记这个旋转已经处理过
     lastProcessedSpinIdRef.current = spinId;
-    console.log(`处理旋转完成事件，旋转ID: ${spinId}`);
     
     const {
       customItems: currentCustomItems,
@@ -297,11 +280,9 @@ export default function YesNoWheel(props: YesNoWheelProps) {
       
       if (currentShowControls) {
         const valStr = String(completeWinningItem.value).toLowerCase();
-        console.log(`增加计数: ${valStr}`);
         currentSetCounters(prev => {
           // 如果该选项不在计数器中，先添加它
           if (!(valStr in prev)) {
-            console.log(`添加新的计数选项: ${valStr}`);
             return { ...prev, [valStr]: 1 };
           }
           // 否则增加现有计数
@@ -334,7 +315,6 @@ export default function YesNoWheel(props: YesNoWheelProps) {
     if (wheelRef.current && window.jQuery) { 
       try {
         const $ = window.jQuery;
-        console.log('重新启用旋转按钮');
         $('.wheel-horizontal-spin-button', wheelRef.current).prop('disabled', false);
       } catch (error) {
         console.error('重置按钮状态时出错:', error);
@@ -376,14 +356,12 @@ export default function YesNoWheel(props: YesNoWheelProps) {
         // 如果累计概率超过1，记录截断点
         if (cumulativeProbability >= 0.9999 && cutoffIndex === -1) { // 使用0.9999避免浮点精度问题
           cutoffIndex = i;
-          console.log(`截断点设置为索引 ${cutoffIndex}，累计概率: ${cumulativeProbability}`);
         }
       }
     }
     
     // 如果找到了截断点，将截断点之后的所有选项概率设为0
     if (cutoffIndex !== -1) {
-      console.log(`发现概率总和已达到1，将索引 ${cutoffIndex + 1} 及之后的所有选项概率设为0`);
       for (let i = cutoffIndex + 1; i < processedItems.length; i++) {
         const item = safeGet(processedItems, i);
         if (item) {
@@ -393,7 +371,6 @@ export default function YesNoWheel(props: YesNoWheelProps) {
       
       // 如果前几项概率总和超过1，需要进行缩放以确保总和为1
       if (cumulativeProbability > 1.0001) { // 容忍一点浮点误差
-        console.log(`概率总和 ${cumulativeProbability} 超过1，进行比例缩放`);
         let sumBeforeCutoff = 0;
         
         // 计算截断点及之前的概率总和
@@ -434,7 +411,6 @@ export default function YesNoWheel(props: YesNoWheelProps) {
         
         if (lastProbIndex !== -1) {
           const remainingProb = 1 - cumulativeProbability;
-          console.log(`将剩余概率 ${remainingProb} 分配给索引 ${lastProbIndex} 的选项`);
           const lastItem = safeGet(processedItems, lastProbIndex);
           if (lastItem) {
             lastItem.probability = (lastItem.probability || 0) + remainingProb;
@@ -449,7 +425,6 @@ export default function YesNoWheel(props: YesNoWheelProps) {
         });
       } else {
         // 概率总和大于1但没有找到截断点的情况（理论上不应该发生）
-        console.log('概率总和大于1但无明确截断点，按比例缩放所有概率');
         processedItems.forEach(item => {
           if (typeof item.probability === 'number' && item.probability > 0) {
             item.probability = item.probability / cumulativeProbability;
@@ -460,18 +435,12 @@ export default function YesNoWheel(props: YesNoWheelProps) {
       }
     } else {
       // 无概率值的情况，均等分配
-      console.log('未检测到概率配置，均等分配概率');
       const equalProb = 1 / processedItems.length;
       processedItems.forEach(item => {
         item.probability = equalProb;
       });
     }
-    
-    // 输出最终概率分配
-    console.log('最终概率分配:');
-    processedItems.forEach((item, index) => {
-      console.log(`${index}. ${item.text}: ${item.probability}`);
-    });
+  
     
     // 标准化项目数据，填充缺失的属性
     const normalizedItems = processedItems.map((item, index) => {
@@ -501,7 +470,6 @@ export default function YesNoWheel(props: YesNoWheelProps) {
       return;
     }
     
-    console.log("Main wheel useEffect: Cleaning up existing wheel...");
     const $ = window.jQuery;
 
     // 清理函数 - 确保彻底清除所有事件和数据
@@ -635,7 +603,6 @@ export default function YesNoWheel(props: YesNoWheelProps) {
         }
         
         // 直接绑定点击事件到按钮，而不是通过document委托
-        console.log('绑定旋转按钮点击事件');
         // 先移除所有现有的事件绑定
         $(document).off('click', '.wheel-horizontal-spin-button');
         $(document).off('click', '#wheel-spin-button');
@@ -647,15 +614,13 @@ export default function YesNoWheel(props: YesNoWheelProps) {
           spinButton.on('click', function(e: MouseEvent) {
             e.preventDefault();
             e.stopPropagation();
-            console.log('按钮被点击');
             if (!isSpinning.current) {
               handleSpin();
             } else {
-              console.log('忽略点击，转盘正在旋转中');
+              console.log('ignore click');
             }
           });
           
-          console.log('转盘按钮事件绑定成功');
         } else {
           console.error('找不到转盘按钮元素');
         }

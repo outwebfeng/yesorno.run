@@ -15,6 +15,7 @@
     "logoTitle": "Yes or No",
     "Home": "Home",
     "YesWheel": "Yes Wheel",
+    "NoWheel": "No Wheel",
     "Features": "Features",
     "Introduction": "Introduction",
     "FAQ": "FAQ",
@@ -205,9 +206,13 @@
     "termsConditions": "Terms & Conditions"
   },
   "YesWheel": {
+    "Metadata": {
+      "title": "Yes Wheel - A wheel designed to give positive answers",
+      "description": "A wheel designed to give positive answers - Get psychological encouragement and confidence support!",
+      "keywords": "yes wheel,positive psychology,confidence support,psychological suggestion,positive energy,decision tool"
+    },
     "title": "Yes Wheel",
     "subTitle": "A wheel designed to give positive answers - Get psychological encouragement and confidence support!",
-    "keywords": "yes wheel,positive psychology,confidence support,psychological suggestion,positive energy,decision tool",
     "Wheel": {
       "items": [
         {
@@ -338,6 +343,149 @@
         {
           "question": "Can I use it to make important decisions?",
           "answer": "Yes Wheel is mainly used for psychological support and encouragement. For important decisions, it's recommended to combine rational analysis and multi-faceted considerations."
+        }
+      ]
+    }
+  },
+  "NoWheel": {
+    "title": "No Wheel",
+    "subTitle": "A wheel designed specifically to give negative answers - helping you resist temptation, maintain self-discipline and rationality!",
+    "keywords": "no wheel,self-discipline tool,resist temptation,rational decision,break habits,boundary setting",
+    "Metadata": {
+      "title": "No Wheel - The Ultimate Self-Discipline Decision Tool",
+      "description": "Boost your self-discipline with No Wheel - the decision tool that helps you say 'No' to temptations, break bad habits, and set healthy boundaries in your life.",
+      "keywords": "no wheel,self-discipline tool,resist temptation,break bad habits,boundary setting,rationality booster,impulse control,negative decision maker"
+    },
+    "Wheel": {
+      "items": [
+        {
+          "text": "YES",
+          "value": "yes",
+          "message": "Think again!",
+          "resultTitle": "Positive Answer"
+        },
+        {
+          "text": "NO",
+          "value": "no",
+          "message": "Great! Stick to your principles and stay rational!",
+          "resultTitle": "Negative Answer"
+        }
+      ]
+    },
+    "Features": {
+      "title": "Key Features",
+      "items": [
+        {
+          "title": "100% Negative Results",
+          "description": "This wheel is specifically designed to always give negative answers, helping you resist temptation and maintain self-discipline."
+        },
+        {
+          "title": "Self-Discipline Support Tool",
+          "description": "When you face temptation or need to stick to your principles, this wheel provides rational negative answers."
+        },
+        {
+          "title": "Boundary Setting Assistant",
+          "description": "Helps you learn to say 'no' and establish healthy personal boundaries and life principles."
+        },
+        {
+          "title": "Rational Decision Support",
+          "description": "Provides rational negative advice in scenarios like impulse buying and bad habits."
+        }
+      ]
+    },
+    "Welcome": {
+      "title": "Welcome to No Wheel",
+      "description": "No Wheel is a special self-discipline tool designed specifically for moments when you need to resist temptation, stay rational, and establish boundaries. Whatever temptation or impulse you face, this wheel will give you a negative response to help you maintain self-discipline and stick to your principles."
+    },
+    "WhatIs": {
+      "title": "What is No Wheel?",
+      "description": "No Wheel is a self-discipline support tool that always gives negative answers. This is not a random decision tool, but specifically designed to help you resist temptation and stay rational. When you need to break bad habits, avoid impulse purchases, or set personal boundaries, No Wheel provides the rational support you need."
+    },
+    "HowToUse": {
+      "title": "How to Use",
+      "steps": [
+        {
+          "step": "Identify temptation or impulse",
+          "description": "When you face temptation, impulse, or need to make a decision that might violate your principles."
+        },
+        {
+          "step": "Click the wheel",
+          "description": "Click the wheel to start spinning and let rationality make the choice for you."
+        },
+        {
+          "step": "Accept the negative answer",
+          "description": "The wheel will give you a negative answer, accept this rational advice."
+        },
+        {
+          "step": "Stick to your principles",
+          "description": "With this rationality and self-discipline, stick to your principles and goals."
+        }
+      ]
+    },
+    "WhyChoose": {
+      "title": "Why Choose No Wheel?",
+      "items": [
+        {
+          "title": "Self-Discipline Support",
+          "description": "Provides rational negative advice when you need to resist temptation and maintain self-discipline."
+        },
+        {
+          "title": "Habit Change",
+          "description": "Helps you break bad habits and establish a healthier lifestyle."
+        },
+        {
+          "title": "Rational Decision Making",
+          "description": "Provides calm negative answers in scenarios like impulse buying and inappropriate behavior."
+        },
+        {
+          "title": "Boundary Setting",
+          "description": "Learn to say 'no' and establish healthy personal boundaries and relationships."
+        }
+      ]
+    },
+    "Benefits": {
+      "title": "Benefits of Use",
+      "items": [
+        {
+          "title": "Enhanced Self-Control",
+          "description": "By receiving negative answers, helps you enhance self-control and resist various temptations."
+        },
+        {
+          "title": "Break Bad Habits",
+          "description": "When you want to repeat bad habits, negative answers help you stick to your cessation plan."
+        },
+        {
+          "title": "Rational Consumption",
+          "description": "Avoid impulse shopping and unnecessary spending, maintain rational financial management."
+        },
+        {
+          "title": "Healthy Boundaries",
+          "description": "Learn to refuse unreasonable requests and establish healthy personal and professional boundaries."
+        }
+      ]
+    },
+    "Faq": {
+      "title": "Frequently Asked Questions",
+      "questions": [
+        {
+          "question": "Why does this wheel always give negative answers?",
+          "answer": "No Wheel is specifically designed to help you maintain self-discipline and rationality. Its purpose is to provide negative advice when you face temptation or impulse, helping you stick to your principles."
+        },
+        {
+          "question": "When is this tool suitable to use?",
+          "answer": "When you face temptation, want to make impulse purchases, consider repeating bad habits, or need to refuse unreasonable requests, you can use this tool."
+        },
+        {
+          "question": "What effect does using No Wheel have?",
+          "answer": "It can provide rational negative advice, help you enhance self-control, break bad habits, avoid impulsive behavior, and establish healthy personal boundaries."
+        },
+        {
+          "question": "Is this tool really useful?",
+          "answer": "Although the result is preset, external negative advice in psychology does help with self-control. It can remind you to stick to your principles at critical moments."
+        },
+        {
+          "question": "Can I use it to break all bad habits?",
+          "answer": "No Wheel is an auxiliary tool that can provide support at critical moments. But breaking bad habits also requires combining other methods, such as making plans and seeking professional help."
         }
       ]
     }

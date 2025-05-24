@@ -1,4 +1,5 @@
 import Navigation from '@/components/home/Navigation';
+import Footer from '@/components/home/Footer';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -9,6 +10,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         </div>
       </header>
       {children}
+      <Footer />
     </div>
   );
 } 
